@@ -1,0 +1,16 @@
+# Test right align
+# Do vertical containers
+# Add a top and right attribute
+# Add other widgets
+# Inorporate the creation into the classes - specific to the widget type
+# Add commands for buttons etc.
+# Drill down the build
+# Detect errors, missing widths and heights, container too small
+# Handle fixed size containers
+# Provide variables for text and entry widgets
+# Do we insist each container is a widget and hence the children start from the 0,0 of the box
+  or do we allow virtual boxes that are not widgets (as a canvas would behave if it had box children)
+
+Note the container attributes left, right, top, bottom are used only if there are no args
+(i.e. a row does not use left and right, they are assumed to be in the arguments
+      a column container does not use top and bottom for the same reason)
