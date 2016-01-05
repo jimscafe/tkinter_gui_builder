@@ -42,6 +42,7 @@ class CT():
         self.type = COLUMN
         self.vertical = args[-1]
         self.args = args[:-1]
+        self.horizontal = kwargs.get('horizontal',CENTERED)
         #print (args)
 
     def create_widget(self, options = None):

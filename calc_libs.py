@@ -64,12 +64,12 @@ def calculate_width(container):
         if all_children_have_widths(container):
             if container.type == ROW:
                 width = 0
-                for i, x in enumerate(container.args):
+                for i, child in enumerate(container.args):
                     #print (i,x)
-                    if (i % 2 == 0): #even
-                        width += x
+                    if (i % 2 == 0): # Even
+                        width += child # Padding
                     else: #odd
-                        width += x.width
+                        width += child.width
                 #print ('Calculated width:', container.name,width)
                 container.width = max(container.width, width)
             elif container.type == COLUMN:
@@ -144,7 +144,7 @@ def calculate_child_x_coordinates(container):
 
 def calculate_child_y_coordinates(container):
     # Make sure all children have heights
-    #print ('Children y coordinates')
+    print ('Children y coordinates', container.name)
     if all_children_have_widths(container):
         if container.type == ROW:
             top = 0
@@ -158,6 +158,7 @@ def calculate_child_y_coordinates(container):
                     top += x
                 else: # Odd a widget - child
                     x.y = top
+                    #print (x.name, x.y)
                     top = x.y + x.height
     else:
         print ('Error, children without heights')
@@ -202,18 +203,18 @@ def alignment_adjustments(node):
                         top = int((node.height - child.height) / 2)
                         child.y = top
         elif node.type == COLUMN:
-            pass
-            """
-            if node.childalignment[0] == GOBJ.CENTER: # Horizontal align
-                for child in node.children:
-                    left = int((node.width - child.width) / 2)
-                    child.x = left
-            if node.childalignment[1] == GOBJ.CENTER: # Vertical align all children
-                top = int((node.children[0].y + node.height - node.children[-1].y - node.children[-1].height) / 2)
-                adjustment = top - node.children[0].y
-                for child in node.children:
-                    child.y += adjustment
-            """
+            if node.horizontal == CENTERED: # Horizontal align all children
+                for i, child in enumerate(node.args):
+                    if (i % 2 != 0): #Odd
+                        left = int((node.width - child.width) / 2)
+                        child.x = left
+            if node.vertical == CENTERED: # Vertical align each child
+                top = int((node.args[1].y + node.height - node.args[-2].y - node.args[-2].height) / 2)
+                adjustment = top - node.args[1].y
+                for i, child in enumerate(node.args):
+                    if (i % 2 != 0): #Odd
+                        child.y += adjustment
+
         for child in node.children:
             alignment_adjustments(child)
 
