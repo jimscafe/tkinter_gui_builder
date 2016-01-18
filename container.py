@@ -1,80 +1,74 @@
-from place_functions import ROW, COLUMN, CENTERED, TOP, BOTTOM
-from tkinter import ttk
 import tkinter as TK
+from tkinter import ttk
 
-CONTAINER = 'container'
+from constants import ROW, COLUMN, HBOX
+from constants import WIN, HIN, VT, HL, VC, VB, HAS, HC, WEX, HEX
 
-class CT():
-    def __init__(self, name, widget=None):
-        self.width = -1
-        self.height = -1
+class Container():
+    def __init__(self, name, children=[],width=-1,height=-1, parms=[]):
+        self.width = width
+        self.height = height
         self.x = -1
         self.y = -1
         self.parent = None
-        self.widgettype = CONTAINER
         self.name = name
         self.type = None
-        self.horizontal = None
-        self.vertical = None
-        self.children = []
-        self.widget = widget
+        self.children = children
+        self.widget = None
         self.relief = TK.GROOVE # Default
-        # Internal Margins for container
-        self.left=0
-        self.right=0
-        self.top=0
-        self.bottom = 0
-
-    def add_row(self, *args, **kwargs):
-        self.type = ROW
-        self.horizontal = args[-1]
-        self.args = args[:-1]
-        #print (args)
-        # Default vertical to CENTERED
-        self.vertical = kwargs.get('vertical',CENTERED)
-        #print (kwargs)
-
-    def add_column(self, *args, **kwargs):
-        self.type = COLUMN
-        self.vertical = args[-1]
-        self.args = args[:-1]
-        self.horizontal = kwargs.get('horizontal',CENTERED)
-        #print (args)
+        if parms:
+            self.width_type = parms[0]
+            self.child_h_padding = parms[4]
+            self.height_type = parms[1]
+            self.child_v_padding = parms[5]
+            self.x_align = parms[2]
+            self.y_align = parms[3]
 
     def create_widget(self, options = None):
-        self.widget = ttk.Frame(self.parent.widget, width=self.width, height=self.height, relief=self.relief)
+        self.widget = TK.Frame(self.parent.widget, width=self.width, height=self.height, relief=self.relief)
 
-# ----------------------------------------------------------------------------------------
-# Layout options for container children
-# ----------------------------------------------------------------------------------------
+class GFrame_Row(Container):
+    def __init__(self, name, children, width=-1, height=-1, parms=[]):
+        Container.__init__(self, name, children, width, height, parms)
+        self.type = ROW
+
+
+class GFrame_Column(Container):
+    def __init__(self, name, children, width=-1, height=-1, parms=[]):
+        Container.__init__(self, name, children, width, height, parms)
+        self.type = COLUMN
+
+class HBox(Container): # Has 2 children (also containers in column), expands children H
+   def __init__(self, name, children, width=-1, height=-1):
+        Container.__init__(self, name, children, width, height, parms=[WEX, HEX, HL, VC,[0,0,0], [0,0]])
+        self.type = COLUMN
+
+class VBox(Container): # Has 2 children (also containers in row), expands children V
+   def __init__(self, name, children, width=-1, height=-1):
+        Container.__init__(self, name, children, width, height, parms=[WEX, HEX, HL, VC,[0,0,0], [0,0]])
+        self.type = ROW
+
+
+def create_top_window(master, node, center=True):
+    if not master:
+        master = TK.Toplevel()
+    if center:
+        center_window(master, node.width, node.height)
+    node.widget = TK.Frame(master, relief=node.relief)
+    node.widget.place(x=node.x, y=node.y,width=node.width, height=node.height)
+
+
+def center_window(root, w=300, h=200): # Center main application window
+    # set screen width and height
+    ws = root.winfo_screenwidth()
+    hs = root.winfo_screenheight()
+    # calculate position x, y
+    x = (ws/2) - (w/2)
+    y = (hs/2) - (h/2)
+    root.geometry('%dx%d+%d+%d' % (w, h, x, y))
 """
-COLUMN                                                      +----------------+
-Vertical:    Top, Centered, Bottom  (All children)          |                |  VT,VC,VB 
-Horizontal   Left, Centered, Right  (All children)          |  +--------+    |  HL,HC,HR
-Width        All children the same                          |  |        |    |  WAS 
-             Expand all children to width of container      |  +--------+    |  WEX
-             Individual                                     |                |  WIN
-Height       All same                                       |  +--------+    |  HAS
-             Individual                                     |  |        |    |  HIN
-                                                            |  +--------+    |
-                                                            |                |
-                                                            +----------------+
+s = Style()
+s.configure('My.TFrame', background='red')
 
-ROW
-Vertical:    Top, Centered, Bottom  +-----------------------------------+
-Horizontal   Left, Centered, Right  |                                   |
-Width        All same               |   +----------+  +------------+    |
-             Individual             |   |          |  |            |    |
-Height       All same               |   +----------+  +------------+    |
-             Expand                 |                                   |       HEX
-             Individual             +-----------------------------------+
+mail1 = Frame(root, style='My.TFrame')
 """
-# ----------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
