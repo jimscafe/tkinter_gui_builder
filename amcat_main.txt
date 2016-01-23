@@ -1,0 +1,35 @@
+----------------------------------------------------------------------
+amcat_main.py
+widgetnode.py
+containernode.py
+constants.py
+build.py
+current_delivery.py
+tablenode.py
+crc_lib.py
+basic_node.py
+gui_lib.py
+debug_lib.py
+----------------------------------------------------------------------
+Display Module Tree
+----------------------------------------------------------------------
+0 +--amcat_main.py
+1 ...+--widgetnode.py
+2 ......+--basic_node.py
+1 ...+--containernode.py
+2 ......+--basic_node.py
+2 ......+--constants.py
+1 ...+--constants.py
+1 ...+--build.py
+2 ......+--gui_lib.py
+3 .........+--constants.py
+2 ......+--containernode.py
+3 .........+--basic_node.py
+3 .........+--constants.py
+2 ......+--debug_lib.py
+1 ...+--current_delivery.py
+2 ......+--crc_lib.py
+1 ...+--tablenode.py
+2 ......+--constants.py
+2 ......+--basic_node.py
+1 ...+--crc_lib.py

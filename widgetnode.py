@@ -1,20 +1,11 @@
-# Base widget classes
+# Widget classes
+from basic_node import Node
 import tkinter as TK
 from tkinter import ttk
 
-
-class Widget():
+class Widget(Node):
     def __init__(self, name='', width = -1, height = -1):
-        self.name = name
-        self.parent = None
-        self.widget = None
-        self.text = None
-        self.command = None
-        self.x = -1
-        self.y = -1
-        self.width = width
-        self.height = height
-        self.children = []
+        Node.__init__(self, name, width, height)
 
     def set_text(self, text):
         self.text = text
@@ -27,10 +18,7 @@ class GLabel(Widget):
         self.text = text
 
     def create_widget(self, options = None):
-        #print (self.parent.widget.winfo_class())
-        #self.widget = ttk.Label(self.parent.widget, text=self.text, background='lightgreen')
         self.widget = TK.Label(self.parent.widget, text=self.text, background='lightgreen')
-
 
 class GButton(Widget):
     def __init__(self, name, width, height, text=''):

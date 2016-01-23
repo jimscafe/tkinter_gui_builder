@@ -1,0 +1,105 @@
+This is an attempt to develop some libraries (using tkinter initially)
+to build a ui quickly.
+Looking back at previous applications using tkinter I had created the code 
+seemed messy and not easy to understand after an absense of months.
+The code typically was :-
+
+Create a root
+Create the top frame
+Create child frames
+In each child frame add widgets.
+
+A sort of top-down approach.
+
+For me a more natural approach is to start with the widgets and the self-contained
+portions of the ui typically within a frame.
+Then insert them into 'containers' to achieve the desired layout.
+
+The ui interface (however created) is like a tree with the root as the top node.
+Then frames and widgets form branches and leaves on the tree.
+
+Although there are cases where the top-most window dimensions are important 
+and need to be specified exactly, it is more usual that the application
+dimensions are determined by the size and layout of its components.
+
+This library uses 'nodes' as objects which contain information about the
+tree strucutre and, in the case of nodes which have child nodes, information
+on how the child nodes will be displayed - their layout - which it typically
+left justified, right justified, centered in the parent, or expanded to fill
+the parent. All this is contained in the parent node, though there may be
+instances where the child could have its own requirements (not yet implemented)
+
+The nodes are build from the bottom up. Typically :-
+
+n1 = label_node
+n2 = label_node
+c1 = conrainer for n1 and n2
+
+n2 = button node
+c2 = container for n2
+
+c3 = container for c1 and c2
+
+It is assumed the bottomnodes (root at the top - upside down tree!) have 
+widths and heights, the containers have a list of children and child 
+justification, gaps between child components if required.
+
+Then the gui is 'built', typically
+
+build_gui(root, c3)
+
+Through a series of iterations, both up and down the tree, all the companent 
+heights and widths are calculated together with their x and y coordinates
+within their parent.
+
+Then the required widgets (frames, labels, buttons, tables) are created
+(top-down of course) before the mainloop() is called.
+
+Configuration details (background color, fonts etc.) can be added either before 
+the gui is built or after.
+
+Commands, tkinter variables can also be linked to the gui components.
+
+Some confusing codes are used to specify the child layout options, this needs
+to be addressed, though some default options are available.
+
+A simple example might be (without the import statements) :-
+
+------------------------------------------------------------------------------------------
+root = TK.Tk()
+
+t = GLabel('Title', width=300, height=20, text = 'AMCAT')
+
+header = GFrame_Row('Header', [t], parms=[WIN, HIN, HC, VC,[10,10], [15,15]])
+
+b1 = GButton('Save', width=100, height=30, text='Save')
+b1.set_command(root.destroy)
+b2 = GButton('Cancel', width=100, height=30, text='Cancel')
+
+footer = GFrame_Row('RowFooter',[b1, b2], height=40, parms=[WIN, HIN, HC, VC,[10,5,10], [0,0]])
+
+main_container = HBox('main', [header,footer])
+
+build_gui(root, main_container)
+
+root.mainloop()
+------------------------------------------------------------------------------------------
+
+This is a main container (frame) with two equal width horizontal child frames.
+The top child frame containes a label and the default size is the width of the
+label plus the 'gaps' either side (10 + 10 + 100 - default label width)
+The height is given in the same way (15 + 15 + 20 - default heightabel)
+
+The bottom frames width is the width of two buttons, plus the gaps (10+5+10+100+100)
+The bottom frame height is pre-set at 40 (heights of widgets might overule this)
+and the widgets are centered vertically, ignoring, in this case the 'gaps' provided
+(0,0)
+
+The main container is the width of the widest child frame (225)
+
+The top container (header) is resized and the position of the label re-calulated
+as it is centered.
+
+(see sample1.py)
+
+
