@@ -1,14 +1,14 @@
 
 from sample_widgets import exit_button
 from constants import WIN, HIN, VT, HL, VC, VB, HAS, HC, WEX
-from container import GFrame_Row, GFrame_Column, HBox, VBox
-from table import GTable
+from containernode import GFrame_Row, GFrame_Column, HBox, VBox
+from tablenode import GTable
 from sample_table import SampleTable, crc_table
 from build import build_gui
 import tkinter as TK
 from tkinter import ttk
 from pymongo import MongoClient
-from widget import GLabel, GButton
+from widgetnode import GLabel, GButton
 
 mongo = MongoClient('localhost', 27017 )
 db = mongo.Production

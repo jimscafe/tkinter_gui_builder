@@ -1,8 +1,8 @@
 
 from sample_widgets import label1, label2, label3, label4, button1, button2, button3, exit_button
 from constants import WIN, HIN, VT, HL, VC, VB, HAS, HC, WEX
-from container import GFrame_Row, GFrame_Column, HBox, VBox
-from table import GTable
+from containernode import GFrame_Row, GFrame_Column, HBox, VBox
+from tablenode import GTable
 from sample_table import SampleTable
 from build import build_gui
 import tkinter as TK

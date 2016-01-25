@@ -1,4 +1,12 @@
 # traverse_tree(root, process, top_down=False, debug=False):
+# Used as parameter to traverse_tree
+#    create_widgets
+#    process_node_width
+#    process_node_height
+#    calculate_x
+#    calculate_y
+#    assign_parent
+
 from constants import ROW, COLUMN, WAS, WIN, WEX, HAS, HIN, HEX, HL, HC, HR, VT, VC, VB
 
 import tkinter as TK
@@ -6,8 +14,9 @@ import sys
 
 def create_widgets(node):
     if node.parent:
-        node.create_widget()
-        print (node.name)
+        if not node.widget:
+            node.create_widget()
+        #print (node.name)
         node.widget.place(x=node.x, y=node.y,width=node.width, height=node.height)
     return ''
 
@@ -211,13 +220,13 @@ def calculate_x(node):
                     print ('Node.x_align not implemented', node.type, node.x_align)
                     sys.exit(1)
                 if node.x_align == HC: # Adjust x coordinate if centered
-                    print ('Horizontal Centered')
-                    print (node.name)
+                    #print ('Horizontal Centered')
+                    #print (node.name)
                     left = int((node.children[0].x + node.width - node.children[-1].x - node.children[-1].width) / 2)
-                    print ('Left', left)
-                    print ('Node width', node.width)
-                    print (node.children[-1].x)
-                    print (node.children[-1].width)
+                    #print ('Left', left)
+                    #print ('Node width', node.width)
+                    #print (node.children[-1].x)
+                    #print (node.children[-1].width)
                     adjustment = left - node.children[0].x
                     for child in node.children:
                         child.x += adjustment

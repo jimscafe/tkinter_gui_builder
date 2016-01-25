@@ -1,5 +1,5 @@
 # Create the widgets for the sample
-from widget import GLabel, GButton
+from widgetnode import GLabel, GButton
 
 label1 = GLabel('Label1', width=100, height=20)
 label2 = GLabel('Label2', width=100, height=20)

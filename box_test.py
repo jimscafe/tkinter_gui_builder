@@ -1,7 +1,7 @@
 
 
 from constants import WIN, HIN, VT, HL, VC, VB, HAS, HC, WEX
-from container import GFrame_Row, GFrame_Column, HBox, VBox
+from containernode import GFrame_Row, GFrame_Column, HBox, VBox
 from build import build_gui
 import tkinter as TK
 

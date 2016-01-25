@@ -1,5 +1,5 @@
 
-from table import GTable, create_column, LABEL_LEFT
+from tablenode import GTable, create_column, LABEL_LEFT
 
 def SampleTable():
     # Note the width and height dimensions need the columns and data - maybe provide blank data

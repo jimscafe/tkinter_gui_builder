@@ -3,11 +3,11 @@
 
 from current_delivery import current_delivery
 from crc_lib import get_crc_all_jobs
-from widget import GLabel, GButton
-from container import GFrame_Row, GFrame_Column, HBox, VBox
+from widgetnode import GLabel, GButton
+from containernode import GFrame_Row, GFrame_Column, HBox, VBox
 from constants import WIN, HIN, VT, HL, VC, VB, HAS, HC, WEX
 from sample_widgets import exit_button
-from table import GTable, create_column, LABEL_LEFT
+from tablenode import GTable, create_column, LABEL_LEFT
 from build import build_gui
 import tkinter as TK
 

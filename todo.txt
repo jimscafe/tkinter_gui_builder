@@ -1,3 +1,15 @@
+Need to add back features to table, editing a cell for example, sorting on a column
+
+With the amcat software (amcat_main.py) I would like to move the pop-up window just right of the button
+Also, if the pop-up window is closed other than by pressing the button, it need to set the status to None
+  easy to stop it closing the window using .protocol("WM_DELETE_WINDOW", self.close_stage)
+  This removes the options from the window self.children[stage].root.overrideredirect(1)
+  See code for solution
+
+
+
+
+
 # Test right align
 # Do vertical containers
 # Add a top and right attribute
